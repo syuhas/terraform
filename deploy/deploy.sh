@@ -1,11 +1,11 @@
 #!/bin/bash
 
-
+set -x
 
 INSTANCE_PUBLIC_DNS="${PUBLIC_DNS}"
 REMOTE_USER="${USER}"
 
-if [ -z "$INSTANCE_PUBLIC_DNS" || -z "$REMOTE_USER"]; then
+if [ -z "$INSTANCE_PUBLIC_DNS" ]; then
     echo "Could not find DNS or user for SSH connection"
     exit 1
 fi
@@ -22,6 +22,7 @@ echo "Connecting to remote server via SSH..."
 ssh -o StrictHostKeyChecking=no "$REMOTE_USER@$INSTANCE_PUBLIC_DNS" << EOF
     sudo dnf install httpd -y
     sudo cp -r /tmp/src /var/www/html
+    sudo ls -la /var/www/html
     sudo systemctl start httpd
     sudo systemctl enable httpd
 EOF
