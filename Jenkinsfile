@@ -16,7 +16,7 @@ pipeline {
         }
         stage('DeployEc2') {
             when {
-                expression { params.ACTION == 'Deploy' }
+                expression { params.Options == 'Deploy' }
             }
             steps {
                 withCredentials([[
@@ -44,7 +44,7 @@ pipeline {
 
         stage('DestroyEc2') {
             when {
-                expression { params.ACTION == 'Destroy' }
+                expression { params.Options == 'Destroy' }
             }
             steps {
                 withCredentials([[
