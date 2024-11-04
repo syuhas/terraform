@@ -21,7 +21,7 @@ echo "Connecting to remote server via SSH..."
 # Copy the build artifact to the remote server
 ssh -o StrictHostKeyChecking=no "$REMOTE_USER@$INSTANCE_PUBLIC_DNS" << EOF
     sudo dnf install httpd -y
-    sudo cp -r /tmp/src /var/www/html
+    sudo cp /tmp/src/index.html /var/www/html
     sudo ls -la /var/www/html
     sudo systemctl start httpd
     sudo systemctl enable httpd
