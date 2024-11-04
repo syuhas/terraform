@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    // parameters {
-    //     choice(name: 'ACTION', choices: ['Deploy', 'Destroy'], description: 'Choose an action to perform: Deploy or Destroy EC2 Resources')
-    // }
-
     stages {
         stage('Getthelayoftheland') {
             steps {
@@ -42,6 +38,17 @@ pipeline {
             }
         }
 
+        stage('ServerSetup') {
+            when {
+                expression { params.Options == 'CheckENVs' }
+            }
+            steps {
+                sshagent(['ec2']) {
+                    sh 'bash deploy/deploy.sh'
+                }
+            }
+        }
+
         stage('DestroyEc2') {
             when {
                 expression { params.Options == 'Destroy' }
@@ -57,12 +64,12 @@ pipeline {
                 }
             }
         }
-        // stage('ServerSetup') {
-        //     steps {
-        //         sshagent(['ec2']) {
-        //             sh 'cat '
-        //         }
-        //     }
-        // }
+
+        post {
+            always {
+                echo 'Cleaning up workspace'
+                cleanWs()
+            }
+        }
     }
 }
