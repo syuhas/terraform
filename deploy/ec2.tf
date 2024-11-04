@@ -4,9 +4,10 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "tfstatebucket"
+    bucket = "terraform-lock-bucket"
     key    = "test/terraform.tfstate"
     region = "us-east-1"
+    dynamodb_table = "terraform-lock-table"
   }
 }
 
