@@ -7,7 +7,7 @@ resource "aws_instance" "testinstance" {
   instance_type = "t2.micro"
   vpc_security_group_ids = ["sg-00d9ca388301c93a9"]
   user_data = file("userdata.sh")
-  key_name = "ec2jenkins"
+  key_name = "ec2"
   tags = {
     Name = "testinstance"
   }
