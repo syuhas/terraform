@@ -21,15 +21,15 @@ pipeline {
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
-                    sh 'cd deploy'
-                    sh 'terraform init'
-                    sh 'terraform plan -out=plan.tfplan'
-                    sh 'terraform apply -auto-approve plan.tfplan'
+                    sh 'deploy'
+                    sh 'deploy/terraform init'
+                    sh 'deploy/terraform plan -out=plan.tfplan'
+                    sh 'deploy/terraform apply -auto-approve plan.tfplan'
                     script {
-                        env.INSTANCE_ID = sh(script: 'terraform output -raw instance_id', returnStdout: true).trim()
-                        env.PUBLIC_IP = sh(script: 'terraform output -raw instance_public_ip', returnStdout: true).trim()
-                        env.PUBLIC_DNS = sh(script: 'terraform output -raw instance_public_dns', returnStdout: true).trim()
-                        env.INSTANCE_NAME = sh(script: 'terraform output -raw instance_name', returnStdout: true).trim()
+                        env.INSTANCE_ID = sh(script: 'deploy/terraform output -raw instance_id', returnStdout: true).trim()
+                        env.PUBLIC_IP = sh(script: 'deploy/terraform output -raw instance_public_ip', returnStdout: true).trim()
+                        env.PUBLIC_DNS = sh(script: 'deploy/terraform output -raw instance_public_dns', returnStdout: true).trim()
+                        env.INSTANCE_NAME = sh(script: 'deploy/terraform output -raw instance_name', returnStdout: true).trim()
                     }
                     sh 'echo "Instance ID: ${INSTANCE_ID}"'
                     sh 'echo "Public IP: ${PUBLIC_IP}"'
