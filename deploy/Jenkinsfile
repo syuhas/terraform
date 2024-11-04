@@ -42,7 +42,7 @@ pipeline {
 
         stage('ServerSetup') {
             when {
-                expression { params.Options == 'CheckENVs' }
+                expression { params.Options == 'Deploy' }
             }
             steps {
                 sshagent(['ec2']) {
