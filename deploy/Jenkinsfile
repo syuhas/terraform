@@ -21,7 +21,6 @@ pipeline {
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                 ]]) {
-                    sh 'deploy'
                     sh 'deploy/terraform init'
                     sh 'deploy/terraform plan -out=plan.tfplan'
                     sh 'deploy/terraform apply -auto-approve plan.tfplan'
