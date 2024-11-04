@@ -2,6 +2,14 @@ provider "aws" {
   region = "us-east-1"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "tfstatebucket"
+    key    = "test/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
 resource "aws_instance" "testinstance" {
   ami = "ami-06b21ccaeff8cd686"
   instance_type = "t2.micro"
