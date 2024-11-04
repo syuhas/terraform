@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    parameters {
-        choice(name: 'ACTION', choices: ['Deploy', 'Destroy'], description: 'Choose an action to perform: Deploy or Destroy EC2 Resources')
-    }
+    // parameters {
+    //     choice(name: 'ACTION', choices: ['Deploy', 'Destroy'], description: 'Choose an action to perform: Deploy or Destroy EC2 Resources')
+    // }
 
     stages {
         stage('Getthelayoftheland') {
